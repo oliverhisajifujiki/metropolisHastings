@@ -1,0 +1,30 @@
+\documentclass{article}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{caption}
+
+\captionsetup{labelformat=empty}
+
+\begin{document}
+
+\begin{algorithm}
+\caption{\textbf{Metropolis--Hastings}}
+\begin{algorithmic}
+\State \textbf{Input:} Starting point $\theta^{(0)}$, target distribution $p(\theta|y)$, proposal distribution $J(\theta^*|\theta)$
+\While{convergence not met}
+  \State Sample proposal $\theta^* \sim J(\theta^* | \theta^{(t-1)})$
+  \State Compute acceptance ratio
+  \[
+    r = 
+    \frac{
+      p(\theta^*|y) \, J(\theta^{(t-1)}|\theta^*)
+    }{
+      p(\theta^{(t-1)}|y) \, J(\theta^*|\theta^{(t-1)})
+    }
+  \]
+  \State With probability $\min(1, r)$, set $\theta^{(t)} \leftarrow \theta^*$; otherwise $\theta^{(t)} \leftarrow \theta^{(t-1)}$
+\EndWhile
+\end{algorithmic}
+\end{algorithm}
+
+\end{document}
