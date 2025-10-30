@@ -24,9 +24,9 @@ def metropolisHastings(
     accepted = 0
 
     # optional: tweak global settings at runtime
-    STOP_SETTINGS["printEvery"] = 1
+    STOP_SETTINGS["printEvery"] = 10000
     STOP_SETTINGS["enableIterationLimit"] = True
-    STOP_SETTINGS["iterationLimit"] = 1000
+    STOP_SETTINGS["iterationLimit"] = 100000
     STOP_SETTINGS["enableTimeLimit"] = False  # or True, and set timeLimitSec
 
     # pick/compose your conditions
@@ -43,7 +43,7 @@ def metropolisHastings(
             theta = thetaStar
             accepted += 1
 
-        samples.append(theta.item())
+        samples.append(np.copy(theta))
 
         if checkStop(np.array(samples), i, conditions=[stopCond], printLabel="MH"):
             break
